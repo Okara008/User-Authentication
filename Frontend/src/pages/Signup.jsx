@@ -11,7 +11,7 @@ const Signup = () =>{
         role: 'user',
         password: ''
     })
-    const baseUrl = 'http://localhost:5000'
+    const baseUrl = 'https://user-authentication-7r0b.onrender.com'
 
     const handleSubmit = async(e)=>{
         e.preventDefault()

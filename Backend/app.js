@@ -35,9 +35,14 @@ app.use(cors({
 app.use('/uploads', express.static('uploads'))
 
 app.use(session({
-    secret: "my-secret",
+    secret: process.env.SES_NAME,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+        secure: true,
+        sameSite: 'none',
+        httpOnly: true
+    }
 }))
 
 const isAuthenticated = (req, res, next) => {
