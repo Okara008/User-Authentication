@@ -54,7 +54,7 @@ const Signup = () =>{
             marginRight: 10
         }
     }
-    return(
+    return(<>
 		<form method="post" onSubmit={handleSubmit}>
 			<fieldset>
 				<legend>Sign Up</legend>
@@ -81,6 +81,6 @@ const Signup = () =>{
                 <button type="button">Log in with google instead</button>
 			</fieldset>
 		</form>
-    )
+    </>)
 }
 export default Signup

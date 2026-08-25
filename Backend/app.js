@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
+const mysql = require("mysql2");
 require("dotenv").config()
 
 const multer = require("multer");
@@ -9,10 +10,9 @@ const streamifier = require("streamifier")
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-const mysql = require("mysql2");
 const bcrypt = require("bcrypt");
 const session = require("express-session")
-const MySQLStore = require("express-mysql-session")(session);
+const MySQLStore = require("express-mysql-session")(session); 
 const fs = require('fs')
 
 const db = mysql.createConnection({
@@ -28,11 +28,15 @@ cloudinary.config({
     api_secret: process.env.C_API_SECRET,
 });
 
+app.set('trust proxy', 1)
+
 app.use(express.json())
+
 app.use(cors({
     origin: process.env.FRONTEND_URL,
     credentials: true
 }))
+
 app.use('/uploads', express.static('uploads'))
 
 const sessionStore = new MySQLStore({
@@ -314,6 +318,7 @@ app.post('/profile', isAuthenticated, upload.single("profile_pic"), async (req, 
 
 app.use((_, res) => res.status(404).json({"message": "404 Page Not Found"}))
 
-app.listen(process.env.PORT || 5000, ()=>{
-    console.log("Server listening at port 5000...");
+const PORT = process.env.PORT || 5000
+app.listen(PORT, ()=>{
+    console.log(`Server listening at port ${PORT}...`);
 })
