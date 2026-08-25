@@ -17,7 +17,6 @@ const Signup = () =>{
         e.preventDefault()
 
         try{
-            console.log(formData);
             const response = await fetch(`${baseUrl}/signup`, {
                 method: "POST",
                 headers:{
